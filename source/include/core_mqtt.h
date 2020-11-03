@@ -209,6 +209,11 @@ typedef struct MQTTContext
     uint16_t keepAliveIntervalSec; /**< @brief Keep Alive interval. */
     uint32_t pingReqSendTimeMs;    /**< @brief Timestamp of the last sent PINGREQ. */
     bool waitingForPingResp;       /**< @brief If the library is currently awaiting a PINGRESP. */
+
+    /**
+     * @brief User data context.
+     */
+    void * userData;
 } MQTTContext_t;
 
 /**
@@ -241,6 +246,7 @@ typedef struct MQTTDeserializedInfo
  * @param[in] userCallback The user callback to use with the context to
  * notify about incoming packet events.
  * @param[in] pNetworkBuffer Network buffer provided for the context.
+ * @param[in] userData user data context.
  *
  * @return #MQTTBadParameter if invalid parameters are passed;
  * #MQTTSuccess otherwise.
@@ -278,7 +284,7 @@ typedef struct MQTTDeserializedInfo
  * fixedBuffer.pBuffer = buffer;
  * fixedBuffer.size = 1024;
  *
- * status = MQTT_Init( &mqttContext, &transport, getTimeStampMs, eventCallback, &fixedBuffer );
+ * status = MQTT_Init( &mqttContext, &transport, getTimeStampMs, eventCallback, &fixedBuffer, NULL );
  *
  * if( status == MQTTSuccess )
  * {
@@ -292,7 +298,8 @@ MQTTStatus_t MQTT_Init( MQTTContext_t * pContext,
                         const TransportInterface_t * pTransportInterface,
                         MQTTGetCurrentTimeFunc_t getTimeFunction,
                         MQTTEventCallback_t userCallback,
-                        const MQTTFixedBuffer_t * pNetworkBuffer );
+                        const MQTTFixedBuffer_t * pNetworkBuffer,
+                        const void * userData );
 /* @[declare_mqtt_init] */
 
 /**
