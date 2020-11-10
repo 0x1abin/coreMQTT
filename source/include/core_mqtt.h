@@ -299,7 +299,7 @@ MQTTStatus_t MQTT_Init( MQTTContext_t * pContext,
                         MQTTGetCurrentTimeFunc_t getTimeFunction,
                         MQTTEventCallback_t userCallback,
                         const MQTTFixedBuffer_t * pNetworkBuffer,
-                        const void * userData );
+                        void * userData );
 /* @[declare_mqtt_init] */
 
 /**
